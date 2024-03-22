@@ -1,0 +1,59 @@
+/* components/RegisterEvent.css */
+
+.register-event {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .register-event h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .register-event form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .register-event input[type="text"],
+  .register-event input[type="email"],
+  .register-event input[type="tel"],
+  .register-event button {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .register-event button {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .register-event button:hover {
+    background-color: #0056b3;
+  }
+  
+  .register-event input:focus,
+  .register-event button:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  .register-event input::placeholder {
+    color: #999;
+  }
+  
+  @media (max-width: 480px) {
+    .register-event {
+      max-width: 100%;
+      padding: 15px;
+    }
+  }
+  

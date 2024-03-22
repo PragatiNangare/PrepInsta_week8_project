@@ -1,0 +1,45 @@
+/* components/SignUp.css */
+
+.signup {
+  padding: 50px 0;
+  background-image: url('./bg.png'); /* Specify the path to your image */
+  background-size: cover; /* Ensure the image covers the entire container */
+  background-position: center; /* Center the image */
+}
+
+.signup .container {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.6); /* Add a semi-transparent white background */
+  padding: 20px; /* Add padding to improve readability */
+  border-radius: 5px; /* Add rounded corners */
+  height: 65vh;
+}
+
+.signup h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.signup input {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.signup button {
+  width: 100%;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.signup button:hover {
+  background-color: #555;
+}
