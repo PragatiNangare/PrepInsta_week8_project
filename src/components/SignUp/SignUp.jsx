@@ -25,7 +25,7 @@ function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Perform form submission logic here
+
     console.log(formData);
     const response= await fetch(`${api_uri}/api/auth/register`, {
       method: 'POST',
@@ -36,7 +36,6 @@ function SignUp() {
     })
     const data= await response.json();
     console.log(data);
-    // Reset form fields
     setFormData({
       name: '',
       phoneNumber: '',

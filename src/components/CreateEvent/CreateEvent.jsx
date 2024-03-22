@@ -38,24 +38,24 @@ function CreateEvent({ isAuthenticated }) {
     e.preventDefault();
     console.log(formData);
     try {
-        const token = localStorage.getItem('token'); // Assuming you store the token in local storage
+        const token = localStorage.getItem('token'); 
 
         if (!token) {
             console.error('Authorization token is missing');
-            return; // Handle the case where the token is missing
+            return; 
         }
 
         const response = await fetch(`${api_uri}/api/auth/createEvent`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` // Include the authorization token in the request headers
+                'Authorization': `Bearer ${token}` 
             },
             body: JSON.stringify(formData)
         });
         const data = await response.json();
         console.log(data);
-        // Reset form fields
+
         setFormData({
             title: '',
             description: '',

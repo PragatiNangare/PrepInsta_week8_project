@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import './BrowseEvent.css';
-import EventCard from '../EventCard/EventCard'; // Assuming you have a separate component for EventCard
+import EventCard from '../EventCard/EventCard'; 
 import { api_uri } from '../../config';
 import RegisteredEvents from '../RegisteredEvents/RegisteredEvents';
 import { useLocation } from 'react-router-dom';
@@ -68,7 +68,7 @@ function BrowseEvents({ isAuthenticated, username, onLogin }) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`, // Assuming you store the token in localStorage
+          Authorization: `Bearer ${localStorage.getItem('token')}`, 
         },
       });
       if (response.ok) {
@@ -100,10 +100,10 @@ function BrowseEvents({ isAuthenticated, username, onLogin }) {
               <option value="">All Categories</option>
               <option value="Conference">Conference</option>
               <option value="Workshop">Workshop</option>
-              <option value="Networking">Networking</option> {/* New category */}
-              <option value="Art Exhibition">Art Exhibition</option> {/* New category */}
-              <option value="Retreat">Retreat</option> {/* New category */}
-              {/* Add more options based on your categories */}
+              <option value="Networking">Networking</option> 
+              <option value="Art Exhibition">Art Exhibition</option> 
+              <option value="Retreat">Retreat</option> 
+             
             </select>
           </div>
           <div className="event-list">
@@ -117,9 +117,7 @@ function BrowseEvents({ isAuthenticated, username, onLogin }) {
               {showRegisteredEvents ? 'Hide Registered Events' : 'View Registered Events'}
             </button>
           )}
-          {/* {showRegisteredEvents && (
-            <RegisteredEvents isAuthenticated={isAuthenticated} />
-          )} */}
+      
           {showRegisteredEvents && <RegisteredEvents userId={userId} />}
         </div>
       </div>

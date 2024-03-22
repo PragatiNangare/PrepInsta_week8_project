@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import './EventCard.css';
 import { api_uri } from '../../config';
 
 function EventCard({ event, handleRegisterEvent, isAuthenticated }) {
+
+  const navigate= useNavigate();
   const { _id, title, description, date, time, location, category } = event;
   const [isRegistered, setIsRegistered] = useState(false);
 
   const handleRegistration = async () => {
     if (!isAuthenticated) {
       console.log('User not authenticated. Redirecting to login page...');
-      // Handle unauthenticated user (e.g., redirect to login page)
+      navigate('/Login');
       return;
     }
 
@@ -24,14 +26,13 @@ function EventCard({ event, handleRegisterEvent, isAuthenticated }) {
       });
 
       if (response.ok) {
-        setIsRegistered(true); // Update button state to indicate registration
+        setIsRegistered(true); 
       } else {
         console.error('Error registering for event:', response.statusText);
-        // Handle registration error
+ 
       }
     } catch (error) {
       console.error('Error registering for event:', error);
-      // Handle network error
     }
   };
 

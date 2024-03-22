@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import './Home.css'; 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import featureImage1 from './feature11.png'; // Import images for features
+import featureImage1 from './feature11.png'; 
 import featureImage2 from './feature1.png';
 import featureImage3 from './feature3.png';
 import { Link } from 'react-router-dom';
@@ -27,6 +27,7 @@ function Home() {
             </div>
         </div>
         <div className="features">
+            <h1 style={{marginBottom:'40px'}}>Explore Features</h1>
             <div className="containerf">
             <div className="feature">
                 <img src={featureImage1} alt="Feature 1" />
