@@ -24,7 +24,6 @@ function Login({ isAuthenticated, username, onLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Perform form submission logic here
     console.log(formData);
     const response = await fetch(`${api_uri}/api/auth/login`, {
       method: 'POST',
@@ -42,15 +41,17 @@ function Login({ isAuthenticated, username, onLogin }) {
         username: data.username, 
       };
 
-      localStorage.setItem('user', JSON.stringify(user));
+      console.log('user:', user);
+      console.log('main userID', user.userId);
   
+      localStorage.setItem('user', JSON.stringify(user));
+    
       console.log('userData:', data); 
-      navigate('/BrowseEvent');
+      navigate('/BrowseEvent', { state: { userId: data.id } }); // Pass userId in state
     } else {
       alert('Login error: Invalid email or password');
     }
   };
-  
   
 
   console.log('isAuthenticated in Login:', isAuthenticated);

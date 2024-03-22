@@ -5,17 +5,23 @@ import './BrowseEvent.css';
 import EventCard from '../EventCard/EventCard'; // Assuming you have a separate component for EventCard
 import { api_uri } from '../../config';
 import RegisteredEvents from '../RegisteredEvents/RegisteredEvents';
-
+import { useLocation } from 'react-router-dom';
 function BrowseEvents({ isAuthenticated, username, onLogin }) {
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
-  const [showRegisteredEvents, setShowRegisteredEvents] = useState(false); 
+  const [showRegisteredEvents, setShowRegisteredEvents] = useState(false);
 
   useEffect(() => {
     fetchEvents();
   }, []);
+
+
+  const location = useLocation();
+  const { userId } = location.state || {};
+
+  console.log('userId in BrowseEvents:', userId);
 
   const fetchEvents = async () => {
     try {
@@ -28,7 +34,7 @@ function BrowseEvents({ isAuthenticated, username, onLogin }) {
     } catch (error) {
       console.error('Error fetching events:', error);
     }
-  
+
   };
 
   const handleSearch = (e) => {
@@ -70,7 +76,7 @@ function BrowseEvents({ isAuthenticated, username, onLogin }) {
       if (response.ok) {
         console.log("In handleRegisterEvent");
       } else {
-        // Handle registration error
+        console.log('Failed to register for event');
       }
     } catch (error) {
       console.error('Error registering for event:', error);
@@ -109,13 +115,14 @@ function BrowseEvents({ isAuthenticated, username, onLogin }) {
             ))}
           </div>
           {isAuthenticated && (
-          <button className="viewEvents" onClick={toggleRegisteredEvents}>
-            {showRegisteredEvents ? 'Hide Registered Events' : 'View Registered Events'}
-          </button>
+            <button className="viewEvents" onClick={toggleRegisteredEvents}>
+              {showRegisteredEvents ? 'Hide Registered Events' : 'View Registered Events'}
+            </button>
           )}
-          {showRegisteredEvents && (
+          {/* {showRegisteredEvents && (
             <RegisteredEvents isAuthenticated={isAuthenticated} />
-          )}
+          )} */}
+          {showRegisteredEvents && <RegisteredEvents userId={userId} />}
         </div>
       </div>
     </>

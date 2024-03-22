@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const authenticateUser = (req, res, next) => {
-    const token = req.headers.authorization;
+    let token = req.headers.authorization;
     console.log('token:', token);
 
     if (!token) {
@@ -9,10 +9,15 @@ const authenticateUser = (req, res, next) => {
         return res.status(401).json({ message: 'Authorization token is required' });
     }
 
+    // Remove 'Bearer ' from token
+    if (token.startsWith('Bearer ')) {
+        token = token.slice(7, token.length);
+    }
+
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         console.log('🐘 Token decoded successfully:', decoded);
-        req.user = decoded; // Attach user information to the request
+        req.user = decoded;
         next();
     } catch (error) {
         console.error('🐍 Authentication error:', error);
