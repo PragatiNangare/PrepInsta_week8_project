@@ -42,6 +42,7 @@ function SignUp() {
       email: '',
       password: '',
     });
+    
   };
 
   return (
