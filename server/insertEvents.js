@@ -1,5 +1,5 @@
 // insertEvents.js
-
+//to insert events into Event Collection for browsing
 const mongoose = require('mongoose');
 const Event = require('./models/Event'); // Assuming Event model is defined in Event.js
 

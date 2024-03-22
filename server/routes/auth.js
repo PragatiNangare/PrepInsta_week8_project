@@ -11,13 +11,11 @@ router.post('/register', async (req, res) => {
   const { name, phoneNumber, email, password } = req.body;
 
   try {
-    // Check if user with the provided email already exists
     let user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // Create a new user instance
     user = new User({
       name,
       phoneNumber,
@@ -25,15 +23,12 @@ router.post('/register', async (req, res) => {
       password
     });
 
-    // Hash the password
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
 
-    // Save the user to the database
     await user.save();
 
     res.status(201).json({ message: 'User registered successfully' });
-    alert('User registered successfully');
   } catch (error) {
     console.error('Registration error:', error);
     res.status(500).json({ message: 'Internal server error' });
@@ -45,22 +40,19 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Check if user with the provided email exists
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
-    // Check if the provided password matches the hashed password in the database
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
     const jwtSecret = process.env.JWT_SECRET;
-    // Generate a JWT token
+
     const token = jwt.sign({ userId: user._id }, jwtSecret, { expiresIn: '1h' });
 
-    // Send the token in the response
     res.json({ username: user.name, token, id: user._id });
   } catch (error) {
     console.error('Login error:', error);
@@ -68,17 +60,19 @@ router.post('/login', async (req, res) => {
   }
 });
 
+//route for Browsing events
 router.get('/events', async (req, res) => {
   try {
-    // Fetch events from MongoDB
+
     const events = await Event.find();
-    res.json(events); // Send events as JSON response
+    res.json(events); 
   } catch (err) {
     console.error('Error fetching events:', err);
     res.status(500).send('Internal Server Error');
   }
 });
 
+//route for creating events
 router.post('/createEvent', async (req, res) => {
   const { title, description, date, time, location, category, capacity, registrationDeadline } = req.body;
 
@@ -97,7 +91,6 @@ router.post('/createEvent', async (req, res) => {
     await event.save();
 
     res.status(201).json({ message: 'Event created successfully' });
-    alert("Event Created Successfully")
   } catch (error) {
     console.error('Event creation error:', error);
     res.status(500).json({ message: 'Internal server error' });
@@ -106,6 +99,7 @@ router.post('/createEvent', async (req, res) => {
 
 const Registration = require('../models/Registration');
 
+//route for registering events
 router.post('/register-event/:eventId', authenticateUser, async (req, res) => {
   const { eventId } = req.params;
   const userId = req.user.userId;
@@ -131,6 +125,8 @@ router.post('/register-event/:eventId', authenticateUser, async (req, res) => {
   }
 });
 
+
+//route to get registered events
 router.get('/registered-events/:userId', authenticateUser, async (req, res) => {
   const userId = req.params.userId;
 
