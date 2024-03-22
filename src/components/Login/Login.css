@@ -1,0 +1,47 @@
+/* components/Login.css */
+
+.login {
+    padding: 50px 0;
+    background-image: url('./bg.png'); /* Specify the path to your image */
+    background-size: cover; /* Ensure the image covers the entire container */
+    background-position: center; /* Center the image */
+    height: 80vh;
+    padding: 100px;
+  }
+  
+  .login .container {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Add a semi-transparent white background */
+    padding: 20px; /* Add padding to improve readability */
+    border-radius: 5px; /* Add rounded corners */
+  }
+  
+  .login h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .login input {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .login button {
+    width: 100%;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .login button:hover {
+    background-color: #555;
+  }
+  

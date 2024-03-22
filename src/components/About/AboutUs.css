@@ -1,0 +1,22 @@
+/* components/AboutUs.css */
+
+.about-us {
+    padding: 50px 0;
+    height: 80vh;
+  }
+  
+  .about-us .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .about-us h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .about-us p {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+  

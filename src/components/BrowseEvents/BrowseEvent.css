@@ -1,0 +1,56 @@
+/* components/BrowseEvents.css */
+
+.browse-events {
+    padding: 50px 0;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .filter-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  input[type="text"],
+  select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .event-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 20px;
+  }
+
+  .search {
+    width: 200px;
+  }
+  
+  .viewEvents {
+    display: block;
+    margin: 20px auto; /* Center the button horizontally */
+    padding: 10px 20px;
+    background-color: #202020; /* Blue color */
+    color: #fff; /* White text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .viewEvents:hover {
+    background-color: #444546; /* Darker shade of blue on hover */
+  }
+  

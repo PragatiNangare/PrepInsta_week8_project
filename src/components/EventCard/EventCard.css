@@ -1,0 +1,25 @@
+/* components/EventCard.css */
+
+.event-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .event-info {
+    margin-bottom: 10px;
+  }
+  
+  .event-info h2 {
+    margin-top: 0;
+  }
+  
+  .event-info p {
+    margin: 5px 0;
+  }
+  
+  .register-button{
+    background-color: rgb(73, 73, 240);
+  }

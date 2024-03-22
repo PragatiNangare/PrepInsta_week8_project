@@ -1,0 +1,10 @@
+.main-content {
+    flex: 1; 
+    padding-bottom: 100px; 
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Make sure the container takes up at least the full height of the viewport */
+  }
