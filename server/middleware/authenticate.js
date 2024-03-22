@@ -9,7 +9,6 @@ const authenticateUser = (req, res, next) => {
         return res.status(401).json({ message: 'Authorization token is required' });
     }
 
-    // Remove 'Bearer ' from token
     if (token.startsWith('Bearer ')) {
         token = token.slice(7, token.length);
     }

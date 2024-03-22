@@ -26,9 +26,7 @@ function BrowseEvents({ isAuthenticated, username, onLogin }) {
   const fetchEvents = async () => {
     try {
       const response = await fetch(`${api_uri}/api/auth/events`);
-      console.log('Response:', response);
       const data = await response.json();
-      console.log('Data:', data);
       setEvents(data);
       setFilteredEvents(data);
     } catch (error) {
@@ -39,7 +37,7 @@ function BrowseEvents({ isAuthenticated, username, onLogin }) {
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
-    filterEvents(e.target.value, categoryFilter); // Fix: Use e.target.value directly instead of searchTerm
+    filterEvents(e.target.value, categoryFilter); 
   };
 
   const handleCategoryFilter = (e) => {

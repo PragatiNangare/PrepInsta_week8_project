@@ -132,10 +132,7 @@ router.post('/register-event/:eventId', authenticateUser, async (req, res) => {
 });
 
 router.get('/registered-events/:userId', authenticateUser, async (req, res) => {
-  console.log("This has been called");
   const userId = req.params.userId;
-  console.log("This has been called");
-  console.log("User ID:", userId);
 
   try {
     const registrations = await Registration.find({ user: userId });
