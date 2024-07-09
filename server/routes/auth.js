@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const Event = require('../models/Event');
+const Contact = require('../models/Contact');
 const authenticateUser = require('../middleware/authenticate');
 
 // Route for user registration
@@ -59,6 +60,23 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+//verify token endpoint
+router.post('/verify-token', async(req, res) =>{
+  const {token}= req.body;
+  const jwtSecret= process.env.JWT_SECRET;
+  try{
+    const decoded= jwt.verify(token, jwtSecret);
+    const user = await User.findById(decoded.userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.json({ userId: decoded.userId, username: user.name });
+  }catch (error) {
+    console.error('Token verification error:', error);
+    res.status(401).json({ message: 'Invalid or expired token' });
+  }
+})
 
 //route for Browsing events
 router.get('/events', async (req, res) => {
@@ -147,4 +165,66 @@ router.get('/registered-events/:userId', authenticateUser, async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
+//fetch unregistered events for a user
+router.get('/unregistered-events/:userId', authenticateUser, async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    // Get all events
+    const allEvents = await Event.find();
+
+    // Get registered events for the user
+    const registeredEvents = await Registration.find({ user: userId }).populate('event');
+
+    // Extract the event IDs of registered events
+    const registeredEventIds = registeredEvents.map(reg => reg.event._id.toString());
+
+    // Filter out registered events from all events
+    const unregisteredEvents = allEvents.filter(event => !registeredEventIds.includes(event._id.toString()));
+
+    res.status(200).json(unregisteredEvents);
+  } catch (error) {
+    console.error('Error fetching unregistered events:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Unregister event route
+router.delete('/unregister-event/:eventId', authenticateUser, async (req, res) => {
+  const { eventId } = req.params;
+  const userId = req.user.userId;
+
+  try {
+    const registration = await Registration.findOneAndDelete({ user: userId, event: eventId });
+    if (!registration) {
+      return res.status(404).json({ message: 'Registration not found' });
+    }
+    res.status(200).json({ message: 'Successfully unregistered from the event' });
+  } catch (error) {
+    console.error('Error unregistering from event:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Route to handle contact form submissions
+router.post('/contact', async (req, res) => {
+  try {
+    const { name, email, subject, message } = req.body;
+
+    const newContact = new Contact({
+      name,
+      email,
+      subject,
+      message,
+    });
+
+    await newContact.save();
+    res.status(200).send('Message sent successfully');
+  } catch (error) {
+    console.error('Error saving contact message:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
 module.exports = router;
