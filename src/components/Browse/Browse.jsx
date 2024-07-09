@@ -1,4 +1,3 @@
-// components/BrowseEvents.jsx
 
 import React, { useState, useEffect } from 'react';
 import './BrowseEvent.css';
@@ -7,33 +6,27 @@ import { api_uri } from '../../config';
 import RegisteredEvents from '../RegisteredEvents/RegisteredEvents';
 import { useLocation } from 'react-router-dom';
 
-function BrowseEvents({ isAuthenticated, username, onLogin }) {
+function Browse({ isAuthenticated, username, onLogin }) {
   const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('');
   const [showRegisteredEvents, setShowRegisteredEvents] = useState(false);
 
-  const userId= localStorage.getItem('userId');
+  const location = useLocation();
+  const { userId } = location.state || {};
+
   console.log('userId in BrowseEvents:', userId);
 
   useEffect(() => {
-    if (isAuthenticated && userId) {
       fetchEvents();
-    }
-  }, [isAuthenticated, userId]);
+  }, []);
   
 
   const fetchEvents = async () => {
     try {
       let response;
-      if (isAuthenticated && userId) {
-        response = await fetch(`${api_uri}/api/auth/unregistered-events/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-      } else {
+      if (!isAuthenticated){
         response = await fetch(`${api_uri}/api/auth/events`);
       }
       const data = await response.json();
@@ -123,17 +116,10 @@ function BrowseEvents({ isAuthenticated, username, onLogin }) {
 
             ))}
           </div>
-          {isAuthenticated && (
-            <button className="viewEvents" onClick={toggleRegisteredEvents}>
-              {showRegisteredEvents ? 'Hide Registered Events' : 'View Registered Events'}
-            </button>
-          )}
-      
-          {showRegisteredEvents && <RegisteredEvents userId={userId} />}
         </div>
       </div>
     </>
   );
 }
 
-export default BrowseEvents;
+export default Browse;

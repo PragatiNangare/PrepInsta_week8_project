@@ -14,7 +14,6 @@ function AboutUs() {
         <h2>About Us</h2>
         <p>Welcome to our Event Manager application. We are dedicated to providing you with the best platform to plan, organize, and manage your events with ease.</p>
         <p>Our team is committed to delivering an exceptional user experience, and we're constantly working on improving our services to meet your needs.</p>
-        <Contact />
       </div>
     </div>
     </>

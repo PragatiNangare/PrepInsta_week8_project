@@ -3,10 +3,12 @@ import React, { useEffect, useState } from 'react';
 import './Home.css'; 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
-import featureImage1 from './feature11.png'; 
+import featureImage1 from './feature2.png'; 
 import featureImage2 from './feature1.png';
 import featureImage3 from './feature3.png';
 import { Link } from 'react-router-dom';
+import {useTypeWriter, Cursor} from 'react-simple-typewriter';
+import Contact from '../Contact/Contact';
 
 function Home() {
     const [user, setUser] = useState(null);
@@ -21,9 +23,9 @@ function Home() {
         <div className="home">
         <div className="hero">
             <div className="message">
-            <h1>Welcome to our Event Management App</h1>
-            <p>Plan, organize, and manage your events with ease!</p>
-            <Link to="/BrowseEvent" className="btn">Browse Events</Link>
+            <div className="text-container"><h2 class="transition-text" data-text="Plan, Organize, Manage">Plan, Organize, Manage</h2><br/>
+            </div>
+            <h2>Discover and join events tailored just for you.</h2>
             </div>
         </div>
         <div className="features">
@@ -45,6 +47,10 @@ function Home() {
                 <p>Register for events you're interested in attending.</p>
             </div>
             </div>
+        </div>
+        <div>
+        <h1 style={{marginBottom:'40px'}}>Contact Us</h1>
+        <Contact/>
         </div>
         </div>
     </>

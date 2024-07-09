@@ -5,8 +5,8 @@
     background-image: url('./bg.png'); /* Specify the path to your image */
     background-size: cover; /* Ensure the image covers the entire container */
     background-position: center; /* Center the image */
-    height: 80vh;
-    padding: 100px;
+    min-height: 80vh;
+
   }
   
   .login .container {

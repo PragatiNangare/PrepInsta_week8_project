@@ -1,11 +1,15 @@
 /* components/EventCard.css */
 
 .event-card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    background-color: rgb(220, 67, 177, 0.1);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  background-color:#d7d7dc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%; /* Ensures the card takes up full height */
   }
   
   .event-info {
@@ -20,6 +24,20 @@
     margin: 5px 0;
   }
   
-  .register-button{
-    background-color: rgb(73, 73, 240);
+
+  .register-button {
+    background-color: #1E90FF; /* Dodger Blue */
+    align-self: flex-end;
+    margin-top: auto;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .register-button.registered {
+    background-color: black;
   }

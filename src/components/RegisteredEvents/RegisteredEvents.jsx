@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import EventCardWithUnregister from '../EventCard/EventCardWithUnRegister'; 
+import './RegisteredEvents.css';
+import { api_uri } from '../../config';
 
 function RegisteredEvents({ userId = '' }) {
   const [registeredEvents, setRegisteredEvents] = useState([]);
-
-  console.log(userId);
 
   useEffect(() => {
     if (userId) {
@@ -11,39 +12,47 @@ function RegisteredEvents({ userId = '' }) {
     }
   }, [userId]);
 
-
   const fetchRegisteredEvents = async () => {
     try {
-      console.log('Fetching registered events');
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5500/api/auth/registered-events/${userId}`, {
+      const response = await fetch(`${api_uri}/api/auth/registered-events/${userId}`, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          'Authorization': `Bearer ${token}`,
+        },
       });
-      console.log(response);
       if (!response.ok) {
         throw new Error('Failed to fetch registered events');
       }
       const data = await response.json();
-      console.log(data); // Log the response data
       setRegisteredEvents(data);
     } catch (error) {
       console.error('Error fetching registered events:', error);
     }
   };
+
+  const handleUnregisterEvent = (eventId) => {
+    setRegisteredEvents((prevEvents) => prevEvents.filter((event) => event._id !== eventId));
+  };
+
   return (
     <div className="registered-events">
-      <h2>Registered Events</h2>
-      {registeredEvents.length === 0 ? (
-        <p>No events registered yet.</p>
-      ) : (
-        <ul>
-          {registeredEvents.map(event => (
-            <li key={event._id}>{event.title}</li>
-          ))}
-        </ul>
-      )}
+      <div className="container">
+        <h1>Registered Events</h1>
+        {registeredEvents.length === 0 ? (
+          <p>No events registered yet.</p>
+        ) : (
+          <div className="event-list">
+            {registeredEvents.map((event) => (
+              <EventCardWithUnregister
+                key={event._id}
+                event={event}
+                handleUnregisterEvent={handleUnregisterEvent}
+                isAuthenticated={true}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

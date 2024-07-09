@@ -3,12 +3,11 @@ import { Link, useNavigate} from 'react-router-dom';
 import './EventCard.css';
 import { api_uri } from '../../config';
 
-function EventCard({ event, handleRegisterEvent, isAuthenticated }) {
+function EventCard({ event, handleRegisterEvent, isAuthenticated, showRegisterButton = true }) {
 
   const navigate= useNavigate();
-  const { _id, title, description, date, time, location, category } = event;
-  const [isRegistered, setIsRegistered] = useState(false);
-
+  
+  const { _id, title, description, date, time, location, category, isRegistered } = event;
   const handleRegistration = async () => {
     if (!isAuthenticated) {
       console.log('User not authenticated. Redirecting to login page...');
@@ -46,10 +45,8 @@ function EventCard({ event, handleRegisterEvent, isAuthenticated }) {
         <p><strong>Location:</strong> {location}</p>
         <p><strong>Category:</strong> {category}</p>
       </div>
-      {isRegistered ? (
-        <button className="registered-button" disabled>Registered</button>
-      ) : (
-        <button className="register-button" onClick={handleRegistration}>Register</button>
+      {isAuthenticated && showRegisterButton && (
+        <button className={`register-button ${isRegistered ? 'registered' : ''}`} onClick={() => handleRegisterEvent(event._id)}>Register</button>
       )}
     </div>
   );
